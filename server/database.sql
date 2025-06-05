@@ -1,0 +1,20 @@
+CREATE DATABASE pernshoppinglist;
+
+CREATE TABLE shoppinglist(
+    entry_id SERIAL PRIMARY KEY, 
+    entry_name VARCHAR(255),
+    quantity INTEGER,
+    checked BOOLEAN DEFAULT FALSE,
+    priority_flag BOOLEAN DEFAULT FALSE,
+    user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE users (
+  user_id SERIAL PRIMARY KEY,
+  username TEXT UNIQUE NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
