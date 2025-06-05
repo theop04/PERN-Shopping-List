@@ -12,10 +12,10 @@ app.use(express.json()); // req.body
 
 app.post("/entries", async (req,res) => {
     try {
-        const { entry_name, quantity, user_id } = req.body;
+        const { entry_name, quantity, priority_flag, user_id } = req.body;
         const newEntry = await pool.query(
-            "INSERT INTO shoppinglist (entry_name, quantity, checked, priority_flag, user_id) VALUES($1, $2, false, false, $3) RETURNING *", 
-            [entry_name, quantity, user_id]);
+            "INSERT INTO shoppinglist (entry_name, quantity, checked, priority_flag, user_id) VALUES($1, $2, false, $3, $4) RETURNING *", 
+            [entry_name, quantity, priority_flag, user_id]);
         
             res.json(newEntry.rows[0]);
     } catch (err) {
